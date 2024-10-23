@@ -1,28 +1,35 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using OPIGESHOP.Data;
+using OPIGESHOP.Interfaces;
 using OPIGESHOP.Models;
-
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace OPIGESHOP.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IProductRepository _productRepository;
 
-        public ProductsController(ApplicationDbContext context)
+        public ProductsController(IProductRepository productRepository)
         {
-            _context = context;
-        }
-        public IActionResult Index()  //Controller
-        {
-          var products = _context.Products.ToList();      //Model
-            return View(products);      //View
+            _productRepository = productRepository;
         }
 
-        public IActionResult Detail(int id)
+        public async Task<IActionResult> Index()
         {
-            Product product = _context.Products.FirstOrDefault(c => c.Id == id);
+            IEnumerable<Product> products = await _productRepository.GetAllAsync();
+            return View(products);
+        }
+
+        public async Task<IActionResult> Detail(int id)
+        {
+            Product product = await _productRepository.GetByIdAsync(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
         }
 
         // GET: Products/Create
@@ -31,47 +38,36 @@ namespace OPIGESHOP.Controllers
             return View();
         }
 
-
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-
         // POST: Products/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,Category,Description,Image,Unit")] Product Product
-            )
+        public async Task<IActionResult> Create(Product product)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(Product);
-                await _context.SaveChangesAsync();
+                await _productRepository.AddAsync(product);
                 return RedirectToAction(nameof(Index));
             }
-            return View(Product);
+            return View(product);
         }
-        // GET: Products/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var Product = await _context.Products.FindAsync(id);
-            if (Product == null)
+        // GET: Products/Edit/5
+        public async Task<IActionResult> Edit(int id)
+        {
+            Product product = await _productRepository.GetByIdAsync(id);
+            if (product == null)
             {
                 return NotFound();
             }
-            return View(Product);
+            return View(product);
         }
 
         // POST: Products/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Category,Description,Image,Unit")] Product Product)
+        public async Task<IActionResult> Edit(int id, Product product)
         {
-            if (id != Product.Id)
+            if (id != product.Id)
             {
                 return NotFound();
             }
@@ -80,12 +76,11 @@ namespace OPIGESHOP.Controllers
             {
                 try
                 {
-                    _context.Update(Product);
-                    await _context.SaveChangesAsync();
+                    await _productRepository.UpdateAsync(product);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(Product.Id))
+                    if (!await ProductExists(product.Id))
                     {
                         return NotFound();
                     }
@@ -96,25 +91,18 @@ namespace OPIGESHOP.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(Product);
+            return View(product);
         }
 
         // GET: Products/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
+            Product product = await _productRepository.GetByIdAsync(id);
+            if (product == null)
             {
                 return NotFound();
             }
-
-            var Product = await _context.Products
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (Product == null)
-            {
-                return NotFound();
-            }
-
-            return View(Product);
+            return View(product);
         }
 
         // POST: Products/Delete/5
@@ -122,19 +110,18 @@ namespace OPIGESHOP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var Product = await _context.Products.FindAsync(id);
-            if (Product != null)
+            Product product = await _productRepository.GetByIdAsync(id);
+            if (product != null)
             {
-                _context.Products.Remove(Product);
+                await _productRepository.DeleteAsync(product);
             }
-
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductExists(int id)
+        private async Task<bool> ProductExists(int id)
         {
-            return _context.Products.Any(e => e.Id == id);
+            var product = await _productRepository.GetByIdAsync(id);
+            return product != null;
         }
     }
 }

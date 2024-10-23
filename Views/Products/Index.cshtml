@@ -1,44 +1,68 @@
-﻿@model IEnumerable<Product>
+﻿      @model IEnumerable<Product>
 @{
- 
+
     ViewData["Title"] = "Index";
 }
+<a asp-action="Create" class="text-center text-black btn-light btn btn-outline-info mt-auto p"> Add Product</a>
 
-<h1>Available Product</h1>
-
-<div class="album py-5 bg-light">
-    <div class="container">
-       @foreach (var item in Model){
-
-         <div class="row">
-            <div class="col-md-4">
-                <div class="card mb-4 box-shadow">
-                    <img class="card-img-top" src="@item.Image" width="100%" height="25%" alt="Card image cap">
-                    
-                    <div class="card-body">
-                       <p class="card-text">@item.Name</p>
-                       <p class="card-text">@item.Price</p>
-                       <p class="card-text">@item.Description</p>
-                       <p class="card-text">@item.Category</p>
-                    </div>
-
-                    <div class="d-flex justify-content-between align-items-center">
-                         <div class="btn-group">
-
-                                <a asp-action="Edit" asp-route-id="@item.Id" >Edit</a> |
-                               
-                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    </div>
-                      <small class="text-muted" style="padding-right:20px">Unit: @item.Unit</small>
-                     </div>
-                </div>
+     <!-- Header-->
+    <header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Shop in style</h1>
+                <p class="lead fw-normal text-white-50 mb-0">We have what you want!</p>
             </div>
+      
         </div>
-      }
-    </div>
-    </div>
-<h4>
-    <a asp-action="Create">Create New</a>
-</h4>
 
+    </header>
+    <!-- Section-->
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+              @foreach (var item in Model)
+                {
+                 <div class="col mb-5">
+                     <div class="card h-100">
+                        <!-- Sale badge-->
+                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
 
+                        <!-- Product image .Model.Image-->
+                         <img class="card-img-top" src="@item.Image" alt="..." />
+
+                            <!-- Product details-->
+                            
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">@item.Name</h5>
+                                <!-- Product reviews-->
+                                <div class="d-flex justify-content-center small text-warning mb-2">
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                </div>
+                                    <!-- Product price-->
+                                    $@item.Price
+                                </div>
+
+                                <!-- Product Action-->
+                              <div class="text-center">
+                                <a asp-action="Detail" asp-route-id="@item.Id" class="text-center text-black btn-light btn btn-outline-secondary mt-auto">Detail</a>
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="text-center text-black btn-light btn btn-outline-primary mt-auto"> Edit</a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="text-center text-black btn-light btn btn-outline-danger mt-auto">Delete</a>
+                              
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                                <small class="text-muted" style="padding-right:20px">Unit: @item.Unit</small>
+                             </div>
+                          </div>
+                    </div>
+                  </div>
+              
+              }
+        </div>
+    </div>
+    </section>
+       

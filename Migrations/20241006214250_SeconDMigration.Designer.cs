@@ -24,7 +24,7 @@ namespace OPIGESHOP.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("OPIGESHOP.Models.Customer", b =>
+            modelBuilder.Entity("OPIGESHOP.Models.AppUser", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -46,7 +46,7 @@ namespace OPIGESHOP.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers");
+                    b.ToTable("AppUsers");
                 });
 
             modelBuilder.Entity("OPIGESHOP.Models.Product", b =>

@@ -1,18 +1,19 @@
 using Microsoft.EntityFrameworkCore;
 using OPIGESHOP.Data;
-
+using OPIGESHOP.Interfaces;
+using OPIGESHOP.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-//Create Dependency Injection
+// Create Dependency Injection
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
+// Add DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
-);
-
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

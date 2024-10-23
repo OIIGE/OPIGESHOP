@@ -1,48 +1,52 @@
-﻿@model OPIGESHOP.Models.Product
+﻿@using OPIGESHOP.Data.Enum
+@using OPIGESHOP.Models 
+@model OPIGESHOP.Models.Product
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
     ViewData["Title"] = "Create";
 }
-<h1>Create</h1>
+<h1>Add New Product</h1>
 
 <h4>Product</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form method= "post" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <label asp-for="Name" class="control-label" >Name</label>
+                <input asp-for="Name" class="form-control" placeholder="Name" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
+                <label asp-for="Price" class="control-label">Price</label>
+                <input asp-for="Price" class="form-control" placeholder="Price" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Category" class="control-label"></label>
-                <input asp-for="Category" class="form-control" />
-                <span asp-validation-for="Category" class="text-danger"></span>
+                <label asp-for="Category" class="control-label">Product Category</label>
+                <select asp-for="Category" asp-items="@Html.GetEnumSelectList<Category>()" class="form-control">
+                    <option>--Select--</option>
+                </select>
+               <span asp-validation-for="Category" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                <label asp-for="Description" class="control-label">Description</label>
+                <input asp-for="Description" class="form-control" placeholder="Description" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image" class="form-control" />
+                <input asp-for="Image" class="form-control" placeholder="Image" />
                 <span asp-validation-for="Image" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Unit" class="control-label"></label>
-                <input asp-for="Unit" class="form-control" />
+                <input asp-for="Unit" class="form-control" placeholder="Unit" />
                 <span asp-validation-for="Unit" class="text-danger"></span>
             </div>
             <div class="form-group">

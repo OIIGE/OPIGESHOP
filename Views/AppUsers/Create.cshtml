@@ -1,0 +1,74 @@
+﻿@model OPIGESHOP.Models.AppUsers
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Create";
+}
+<h1>Create New User</h1>
+
+<h4>Account</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"> First Name</label>
+                <input asp-for="FirstName" class="form-control" placeholder="First Name" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"> Last Name</label>
+                <input asp-for="LastName" class="form-control" placeholder="Last Name" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label">Email</label>
+                <input asp-for="Email" class="form-control" placeholder="Email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password" class="control-label">Password</label>
+                <input asp-for="Password" class="form-control" placeholder="Password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
+                <label asp-for="Address.Street" class="control-label">Street</label>
+                <input asp-for="Address.Street" class="form-control" placeholder="Street" />
+                <span asp-validation-for="Address.Street" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
+                <label asp-for="Address.City" class="control-label">City</label>
+                <input asp-for="Address.City" class="form-control" placeholder="City" />
+                <span asp-validation-for="Address.City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.State" class="control-label">State</label>
+                <input asp-for="Address.State" class="form-control" placeholder="State"  />
+                <span asp-validation-for="Address.State" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.Country" class="control-label">Country</label>
+                <input asp-for="Address.Country" class="form-control" placeholder="Country" />
+                <span asp-validation-for="Address.Country" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.PostalCode" class="control-label">Postal Code</label>
+                <input asp-for="Address.PostalCode" class="form-control" placeholder="Postal Code" />
+                <span asp-validation-for="Address.PostalCode" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

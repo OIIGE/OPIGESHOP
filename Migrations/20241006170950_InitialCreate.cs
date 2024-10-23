@@ -11,7 +11,7 @@ namespace OPIGESHOP.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Customers",
+                name: "AppUsers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -47,7 +47,7 @@ namespace OPIGESHOP.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "AppUsers");
 
             migrationBuilder.DropTable(
                 name: "Products");
