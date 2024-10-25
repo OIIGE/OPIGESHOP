@@ -4,81 +4,33 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>App Users Profile</h1>
 
 <p>
-    <a asp-action="Create">Create Account</a>
+    <a asp-action="Create" class="text-center text-black btn-light btn btn-outline-info mt-auto p"> Add Users</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address.Street)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address.City)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address.State)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address.Country)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address.PostalCode)
-            </th>
 
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Password)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address.Street)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address.City)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address.State)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address.Country)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address.PostalCode)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 gutters-sm">
+    @foreach (var item in Model)
+    {
+    <div class="col mb-3">
+        <div class="card">
+            <img src="https://www.bootdey.com/image/340x120/FFB6C1/000000" alt="Cover" class="card-img-top">
+            <div class="card-body text-center">
+                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" style="width:100px;margin-top:-65px" alt="User" class="img-fluid img-thumbnail rounded-circle border-0 mb-3">
+                    <h5 class="card-title"> @Html.DisplayFor(modelItem => item.FirstName)  @Html.DisplayFor(modelItem => item.LastName)</h5>
+                    <p class="text-secondary mb-1"> @Html.DisplayFor(modelItem => item.Email)</p>
+                  
+                    <p class="text-muted font-size-sm font-monospace">  @Html.DisplayFor(modelItem => item.Street)</p>
+                    <p class="text-muted font-size-sm font-monospace"> @Html.DisplayFor(modelItem => item.State) , @Html.DisplayFor(modelItem => item.Country)</p>
+            </div>
+                <div class="card-footer">
+                    <div class="text-center">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="text-center text-black btn-light btn btn-outline-primary mt-auto"> Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="text-center text-black btn-light btn btn-outline-danger mt-auto">Delete</a>
+                    </div>
+                </div>
+        </div>
+    </div>
+    }
+</div>

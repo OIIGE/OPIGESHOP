@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using OPIGESHOP.Data;
 using OPIGESHOP.Models;
 
-
 namespace OPIGESHOP.Controllers
 {
     public class AppUsersController : Controller
@@ -14,12 +13,13 @@ namespace OPIGESHOP.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()  //Controller
-        {
-          var appUsers = _context.AppUsers.ToList();      //Model
-            return View(appUsers);      //View
-        }
 
+
+        public async Task<IActionResult> Index()
+        {
+            var appUser = await _context.AppUsers.ToListAsync();
+            return View(appUser);
+        }
 
         // GET: AppUsers/Create
         public IActionResult Create()
@@ -27,23 +27,20 @@ namespace OPIGESHOP.Controllers
             return View();
         }
 
-
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-
         // POST: AppUsers/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Email,Password,Address.AddressId,Address.Street,Address.City,Address.State,Country,PostalCode")] AppUsers AppUser
-            )
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Email,Password,Street,City,State,Country")] AppUsers appUser)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(AppUser);
+                _context.Add(appUser);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(AppUser);
+            return View(appUser);
         }
+
         // GET: AppUsers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -51,37 +48,33 @@ namespace OPIGESHOP.Controllers
             {
                 return NotFound();
             }
-
-            var AppUser = await _context.AppUsers.FindAsync(id);
-            if (AppUser == null)
+            var appUser = await _context.AppUsers.FindAsync(id);
+            if (appUser == null)
             {
                 return NotFound();
             }
-            return View(AppUser);
+            return View(appUser);
         }
 
         // POST: AppUsers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email,Password,Address.AddressId,Address.Street,Address.City,Address.State,Country,PostalCode")] AppUsers AppUser)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email,Password,Street,City,State,Country")] AppUsers appUser)
         {
-            if (id != AppUser.Id)
+            if (id != appUser.Id)
             {
                 return NotFound();
             }
-
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(AppUser);
+                    _context.Update(appUser);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CustomerExists(AppUser.Id))
+                    if (!AppUserExists(appUser.Id))
                     {
                         return NotFound();
                     }
@@ -92,7 +85,7 @@ namespace OPIGESHOP.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(AppUser);
+            return View(appUser);
         }
 
         // GET: AppUsers/Delete/5
@@ -102,15 +95,13 @@ namespace OPIGESHOP.Controllers
             {
                 return NotFound();
             }
-
-            var AppUser = await _context.AppUsers
+            var appUser = await _context.AppUsers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (AppUser == null)
+            if (appUser == null)
             {
                 return NotFound();
             }
-
-            return View(AppUser);
+            return View(appUser);
         }
 
         // POST: AppUsers/Delete/5
@@ -118,17 +109,16 @@ namespace OPIGESHOP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var AppUser = await _context.AppUsers.FindAsync(id);
-            if (AppUser != null)
+            var appUser = await _context.AppUsers.FindAsync(id);
+            if (appUser != null)
             {
-                _context.AppUsers.Remove(AppUser);
+                _context.AppUsers.Remove(appUser);
             }
-
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CustomerExists(int id)
+        private bool AppUserExists(int id)
         {
             return _context.AppUsers.Any(e => e.Id == id);
         }

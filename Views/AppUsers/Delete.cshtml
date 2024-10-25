@@ -35,37 +35,26 @@
         </dd>
 
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Address.Street)
+            @Html.DisplayNameFor(model => model.Street)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Address.Street)
+            @Html.DisplayFor(model => model.Street)
         </dd>
 
+       
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Address.City)
+            @Html.DisplayNameFor(model => model.State)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Address.City)
+            @Html.DisplayFor(model => model.State)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Address.State)
+            @Html.DisplayNameFor(model => model.Country)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Address.State)
+            @Html.DisplayFor(model => model.Country)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Address.Country)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Address.Country)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Address.PostalCode)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Address.PostalCode)
-        </dd>
-        
+                
     </dl>
 
     <form asp-action="Delete">

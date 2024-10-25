@@ -10,10 +10,11 @@ namespace OPIGESHOP.Data
             : base(options)
         {
         }
-
+        public DbSet<AppUsers> AppUsers { get; set; }
         public DbSet<Product> Products { get; set; }
 
-        public DbSet<AppUsers> AppUsers { get; set; }
+        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -28,16 +29,7 @@ namespace OPIGESHOP.Data
 
             });
 
-            modelBuilder.Entity<AppUsers>(entity =>
-            {
-                entity.Property(e => e.Password)
-                      .IsRequired()
-                      .HasMaxLength(100);
-
-                entity.Property(e => e.AddressId)
-                      .IsRequired();
-
-            });
+            
         }
     }
 }

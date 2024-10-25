@@ -5,7 +5,7 @@
 namespace OPIGESHOP.Migrations
 {
     /// <inheritdoc />
-    public partial class SeconDMigration : Migration
+    public partial class initialMigation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
