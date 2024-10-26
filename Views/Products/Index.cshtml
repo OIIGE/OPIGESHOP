@@ -6,16 +6,16 @@
 
 
      <!-- Header-->
-    <header class="bg-dark py-5">
+    <div class="bg-info py-5">
     <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
                 <h1 class="display-4 fw-bolder">Shop in style</h1>
-                <p class="lead fw-normal text-white-50 mb-0">We have what you want!</p>
+                <p class="lead fw-normal text-white mb-0 ">We have what you want!</p>
             </div>
       
         </div>
 
-    </header>
+    </div>
     <!-- Section-->
     <div class="" style="padding-top : 20px">
     <a asp-action="Create" class="text-center text-black btn-light btn btn-outline-info mt-auto p"> Add Product</a>
@@ -31,8 +31,8 @@
                         <!-- Sale badge-->
                         <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
 
-                        <!-- Product image .Model.Image-->
-                         <img class="card-img-top" src="@item.Image" alt="..." />
+                        <!-- Product image .Model.Image @item.Image-->
+                        <img class="card-img-top" src="~/css/phoneicon.webp" alt="Mobile Phone" />
 
                             <!-- Product details-->
                             

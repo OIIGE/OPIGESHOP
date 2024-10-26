@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using OPIGESHOP.Data;
+using OPIGESHOP.Helpers;
 using OPIGESHOP.Interfaces;
 using OPIGESHOP.Repositories;
 
@@ -10,7 +11,7 @@ builder.Services.AddControllersWithViews();
 
 // Create Dependency Injection
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
-
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 // Add DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
